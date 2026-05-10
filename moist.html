@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a2e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+        }
+        #moist-btn {
+            padding: 40px 80px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            background: #e94560;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(233, 69, 96, 0.4);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        #moist-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(233, 69, 96, 0.6);
+            background: #ff6b81;
+        }
+        #moist-btn:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.3);
+        }
+        .subtitle {
+            margin-top: 20px;
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <button id="moist-btn" onclick="playMoist()">MOIST</button>
+        <p class="subtitle">Click the button</p>
+    </div>
+
+    <script>
+        function playMoist() {
+            const utterance = new SpeechSynthesisUtterance('moist');
+            utterance.rate = 0.9;
+            utterance.pitch = 0.8;
+            utterance.volume = 1;
+
+            // Try to get a deeper male voice
+            const voices = window.speechSynthesis.getVoices();
+            const maleVoice = voices.find(v => v.name.includes('Male') || v.name.includes('David') || v.name.includes('Daniel'));
+            if (maleVoice) {
+                utterance.voice = maleVoice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Preload voices
+        window.speechSynthesis.getVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = window.speechSynthesis.getVoices;
+        }
+    </script>
+</body>
+</html>
